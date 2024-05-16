@@ -50,6 +50,12 @@ The function $f$ used in the interpolation examples is defined as: $f(x) = \frac
 <img src="./example/lagrangian.png" alt="Lagrangian interpolation"/>
 
 ### Errors by interpolation
+Error is computed using the formula $\sqrt{\int_a^b \left( f(x) - p(x) \right)^2dx}$  :
+
+  - $f$ is the function to interpolate.
+  - $p$ the interpolation polynomial (or set of polynomial for splines).
+  - $[a, b]$ is the interval of distibuted samples.
+
 <img src="./example/errors.png" alt="errors">
 
 ## Contributing
