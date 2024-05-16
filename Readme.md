@@ -36,7 +36,7 @@ You can compile directly the Java files:
 ```bash
 javac src/*.java
 ```
-Open project with intelliJ IDE or directly import classes in your own project.
+Or, Open project with intelliJ IDE or directly import classes in your own project.
 
 ## Usage
 To use this library in your project, include the provided classes. Detailed usage instructions and examples are available in the code comments.
