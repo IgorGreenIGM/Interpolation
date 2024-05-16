@@ -41,8 +41,7 @@ Open project with intelliJ IDE or directly import classes in your own project.
 ## Usage
 To use this library in your project, include the provided classes. Detailed usage instructions and examples are available in the code comments.
 
-The function $$f(x)$$ used in the interpolation examples is defined as:
-$$f(x) = \frac{1}{1 + 25x^2}$$
+The function $f$ used in the interpolation examples is defined as: $f(x) = \frac{1}{1 + 25x^2}$
 
 ### All interpolations
 <img src="./example/all.png" alt="all interpolation"/>
