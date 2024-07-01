@@ -60,7 +60,7 @@ Error is computed using the formula $\sqrt{\int_a^b \left( f(x) - p(x) \right)^2
 
 ## Contributing
 - [IgorGreenIGM](https://github.com/IgorGreenIGM)
-- [Willy Watcho](https://github.com/IgorGreenIGM)
+- [Willy Watcho](https://github.com/willyWatcho)
 - [Oliver Mokiage](https://github.com/IgorGreenIGM)
 - [Natacha Fonkou](https://github.com/NatachaFonkou)
 - [Audrey Mbeuyo]()
