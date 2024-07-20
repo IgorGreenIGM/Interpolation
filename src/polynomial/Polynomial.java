@@ -327,6 +327,17 @@ public class Polynomial {
         return polynomial1.evaluate(x);
     }
 
+    /**
+     *
+     * @param tolerance value below of that the coefficient will be set to 0.
+     * @param polynomial input polynomial
+     */
+    public static void normalize(double tolerance, Polynomial polynomial) {
+        for (int i = 0; i < polynomial.coefficients.length; ++i)
+            if (polynomial.coefficients[i] < tolerance)
+                polynomial.coefficients[i] = 0.;
+    }
+
     /* Setters and Getters */
 
     public int getDegree() {

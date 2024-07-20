@@ -1,9 +1,5 @@
 package interpolation;
 
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.BufferedReader;
-
 import commons.Point;
 import polynomial.Polynomial;
 
@@ -94,6 +90,8 @@ public class Lagrangian extends Interpolation {
                 lagrangianCoeffs[j] += tmpExpr[j];
         }
 
-        return new Polynomial(lagrangianCoeffs.length - 1, lagrangianCoeffs);
+        Polynomial res = new Polynomial(lagrangianCoeffs.length - 1, lagrangianCoeffs);
+        Polynomial.normalize(1e-8, res);
+        return res;
     }
 }

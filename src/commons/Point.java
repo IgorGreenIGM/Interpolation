@@ -62,11 +62,11 @@ public class Point {
     public static Point[] tchebychevSamples(double a, double b, int n, Function<Double, Double> f) {
         Point[] samples = new Point[n];
 
-        double t = ((a + b) / 2.0);
-        double tf = ((b - a) / 2.0);
-        for (int i = 0; i < n; ++i) {
-            double x = t + tf * Math.cos(((2 * i + 1) * Math.PI) / (2 * n));
-            samples[i] = new Point(x, f.apply(x));
+        double t = (a + b) / 2.0;
+        double tf = (b - a) / 2.0;
+        for (int i = 1; i <= n; ++i) {
+            double x = t + tf * Math.cos(((2.0 * i - 1) * Math.PI) / (2.0 * n));
+            samples[i - 1] = new Point(x, f.apply(x));
         }
 
         return samples;
@@ -88,7 +88,7 @@ public class Point {
         sampleAbscissas[sampleAbscissas.length - 1] = b;
 
         for (int i = 1; i < n - 1; ++i) {
-            x += (range / n);
+            x += (range / (n - 1));
             sampleAbscissas[i] = x;
         }
 
@@ -112,7 +112,7 @@ public class Point {
         samplePoints[samplePoints.length - 1] = new Point(b, f.apply(b));
 
         for (int i = 1; i < n - 1; ++i) {
-            x += (range / n);
+            x += (range / (n - 1));
             samplePoints[i] = new Point(x, f.apply(x));
         }
 

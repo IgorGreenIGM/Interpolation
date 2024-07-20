@@ -13,14 +13,14 @@ import java.util.function.Function;
 
 public class Main {
 
-    private static final int nbSamples = 9;
-    private static final double lowerBound = -1.;
-    private static final double upperBound = 1.;
+    private static final int nbSamples = 50;
+    private static final double lowerBound = -2.;
+    private static final double upperBound = 2.;
     private static final int nbPlotPoints = 200;
     private static final int errorDegree = 10;
 
     public static double f(double x) {
-        return 1.0 / ( 1 + (25*Math.pow(x, 2.)));
+        return 1.0 / (1. + x*x);
     }
 
     public static void main(String[] args) {
@@ -31,23 +31,28 @@ public class Main {
         Point[] tchebyshevSamples = Point.tchebychevSamples(lowerBound, upperBound, nbSamples, Main::f);
 
         // save generated sample Points
-        Point.save(samples, "C:\\Users\\pc\\Desktop\\python\\Interpolation\\samples.txt");
-        Point.save(tchebyshevSamples, "C:\\Users\\pc\\Desktop\\python\\Interpolation\\samplesTchebyshev.txt");
+        Point.save(samples, "./samples.txt");
+        Point.save(tchebyshevSamples, "./samplesTchebyshev.txt");
 
         // computing several interpolations
         Lagrangian lagrangian = new Lagrangian(samples);
+        System.out.println(lagrangian.computePolynomial());
         Lagrangian lagrangianTchebyshev = new Lagrangian(tchebyshevSamples);
         LinearSpline linearSpline = new LinearSpline(samples);
         CubicSpline cubicSpline = new CubicSpline(samples);
 
+        for (Point x : samples)
+            System.out.println(x.getX() + " " + x.getY());
+
+
         // generate and save Plotting data
-        lagrangian.savePlottingDatas(lowerBound, upperBound, nbPlotPoints, "C:\\Users\\pc\\Desktop\\python\\Interpolation\\lagrangian.txt");
-        lagrangianTchebyshev.savePlottingDatas(lowerBound, upperBound, nbPlotPoints, "C:\\Users\\pc\\Desktop\\python\\Interpolation\\lagrangianTchebyshev.txt");
-        linearSpline.savePlottingDatas(lowerBound, upperBound, nbPlotPoints, "C:\\Users\\pc\\Desktop\\python\\Interpolation\\linearSplines.txt");
-        cubicSpline.savePlottingDatas(lowerBound, upperBound, nbPlotPoints, "C:\\Users\\pc\\Desktop\\python\\Interpolation\\cubicSplines.txt");
+        lagrangian.savePlottingDatas(lowerBound, upperBound, nbPlotPoints, "./lagrangian.txt");
+        lagrangianTchebyshev.savePlottingDatas(lowerBound, upperBound, nbPlotPoints, "./lagrangianTchebyshev.txt");
+        linearSpline.savePlottingDatas(lowerBound, upperBound, nbPlotPoints, "./linearSplines.txt");
+        cubicSpline.savePlottingDatas(lowerBound, upperBound, nbPlotPoints, "./cubicSplines.txt");
 
         // Generate and save function plotting data
-        saveFunctionPlottingData(lowerBound, upperBound, nbPlotPoints, "C:\\Users\\pc\\Desktop\\python\\Interpolation\\function.txt", Main::f);
+        saveFunctionPlottingData(lowerBound, upperBound, nbPlotPoints, "./function.txt", Main::f);
 
         // compute interpolation errors
         Error error = new Error(lowerBound, upperBound, errorDegree, Main::f);
@@ -57,7 +62,7 @@ public class Main {
         double cubicSplineError = error.spline(cubicSpline.getSplines(), Arrays.stream(samples).mapToDouble(Point::getX).toArray());
 
         // save interpolations errors
-        saveErrors(lagrangianError, lagrangianTchebyshevError, linearSplineError, cubicSplineError, "C:\\Users\\pc\\Desktop\\python\\Interpolation\\errors.txt");
+        saveErrors(lagrangianError, lagrangianTchebyshevError, linearSplineError, cubicSplineError, "./errors.txt");
     }
 
     private static void saveErrors(double lagrangian, double lagrangianTchebyshev, double linearSpline, double cubicSpline, String path) {
@@ -91,7 +96,7 @@ public class Main {
             double x = a;
             fw.append(Double.toString(a)).append(" ").append(Double.toString(f.apply(a))).append("\n");
             for (int i = 1; i < nbPoints - 1; ++i) {
-                x += (range / nbPoints);
+                x += (range / (nbPoints - 1));
                 fw.append(Double.toString(x)).append(" ").append(Double.toString(f.apply(x))).append("\n");
             }
             fw.append(Double.toString(b)).append(" ").append(Double.toString(f.apply(b))).append("\n");

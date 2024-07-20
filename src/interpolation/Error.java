@@ -33,6 +33,10 @@ public class Error {
         Legendre legendre = new Legendre(degree);
         this.legendreRoots = legendre.getRoots();
         this.legendreWeights = legendre.getWeight(this.legendreRoots);
+
+        for (Double x : this.legendreWeights)
+            System.out.print(x + " ");
+        System.out.println();
     }
 
     /**
@@ -43,9 +47,9 @@ public class Error {
      */
     public double lagrangian(Polynomial p) {
         double sum = .0;
-        double m = (lowerBound + upperBound) / 2;
-        double sr = (upperBound - lowerBound) / 2;
-        for (int  i = 0; i < degree; ++i) {
+        double m = (lowerBound + upperBound) / 2.;
+        double sr = (upperBound - lowerBound) / 2.;
+        for (int  i = 0; i < legendreRoots.length; ++i) {
             double toEval = sr*legendreRoots[i] + m;
             sum += legendreWeights[i]*Math.pow(f.apply(toEval) - p.evaluate(toEval), 2.);
         }
@@ -62,13 +66,13 @@ public class Error {
      */
     public double spline(Polynomial[] polynomials, double[] partition) {
         double sum = .0;
-        double m = (lowerBound + upperBound) / 2;
-        double sr = (upperBound - lowerBound) / 2;
+        double m = (lowerBound + upperBound) / 2.;
+        double sr = (upperBound - lowerBound) / 2.;
 
         for (int i = 0; i < degree; ++i) {
-            for (int j = 0; j < Math.min(partition.length, polynomials.length); ++j) {
-                if (legendreRoots[i] <= partition[j]) {
-                    double toEval = sr*legendreRoots[i] + m;
+            for (int j = 0; j < Math.min(partition.length, polynomials.length) - 1; ++j) {
+                double toEval = sr*legendreRoots[i] + m;
+                if (toEval >= partition[j] && toEval <= partition[j + 1]) {
                     sum += legendreWeights[i]*Math.pow(f.apply(toEval) - polynomials[j].evaluate(toEval), 2.);
                     break;
                 }

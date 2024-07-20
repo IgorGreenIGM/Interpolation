@@ -93,7 +93,7 @@ public abstract class Interpolation {
             double x = a;
             fw.append(Double.toString(a)).append(" ").append(Double.toString(evaluate(a))).append("\n");
             for (int i = 1; i < nbPoints - 1; ++i) {
-                x += (range / nbPoints);
+                x += (range / (double) (nbPoints - 1));
                 fw.append(Double.toString(x)).append(" ").append(Double.toString(evaluate(x))).append("\n");
             }
             fw.append(Double.toString(b)).append(" ").append(Double.toString(evaluate(b))).append("\n");
